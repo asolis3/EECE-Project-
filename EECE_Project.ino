@@ -112,7 +112,7 @@ void loop() {
   delay(250);
   noTone(buzzer);
 
-  tone(buzzer, 440); //D
+  tone(buzzer, 293); //D
   delay(250);
   noTone(buzzer);
 
@@ -260,7 +260,7 @@ tone(buzzer, 466); //Bb
   delay(450);
   noTone(buzzer); 
   
-  tone(buzzer, 3392); //G
+  tone(buzzer, 392); //G
   delay(450);
   noTone(buzzer);
 
@@ -268,15 +268,15 @@ tone(buzzer, 466); //Bb
   delay(240);
   noTone(buzzer);
     
-    tone(buzzer, 0); //C 
+   tone(buzzer, 261); //C 
   delay(250);
   noTone(buzzer); 
   
-  tone(buzzer, 392); //D
+  tone(buzzer, 293); //D
   delay(250);
   noTone(buzzer);
 
-  tone(buzzer, 369); //Eb
+  tone(buzzer, 311); //Eb
   delay(450);
   noTone(buzzer);
   
@@ -284,7 +284,7 @@ tone(buzzer, 466); //Bb
   delay(850);
   noTone(buzzer); 
   
-  tone(buzzer, 0); //Rest
+ //Rest
   delay(250);
   noTone(buzzer);
 
