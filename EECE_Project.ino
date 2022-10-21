@@ -135,7 +135,79 @@ void loop() {
   tone(buzzer, 369); //F#
   delay(250);
   noTone(buzzer);
+    
+  tone(buzzer, 392); //G
+  delay(250);
+  noTone(buzzer);
 
+  tone(buzzer, 349); //F
+  delay(250);
+  noTone(buzzer);
+
+   tone(buzzer, 392); //G
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 349); //F
+  delay(250);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //G
+  delay(450);
+  noTone(buzzer);
+
+  tone(buzzer, 392); //G
+  delay(450);
+  noTone(buzzer);
+    --------------------------
+    
+    tone(buzzer, 0); //Db
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //D
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //Bb
+  delay(250);
+  noTone(buzzer);
+    
+tone(buzzer, 0); //Bb
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //Bb
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //Ab
+  delay(250);
+  noTone(buzzer);
+    
+    tone(buzzer, 0); //Ab
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //Ab
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //G
+  delay(250);
+  noTone(buzzer);
+    
+    tone(buzzer, 0); //Ab
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //G
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //D
+  delay(250);
+  noTone(buzzer);
   
   
  
