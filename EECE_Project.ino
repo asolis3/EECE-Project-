@@ -181,15 +181,15 @@ tone(buzzer, 0); //Bb
   delay(250);
   noTone(buzzer);
 
-  tone(buzzer, 369); //Ab
+  tone(buzzer, 369); //A
   delay(250);
   noTone(buzzer);
     
-    tone(buzzer, 0); //Ab
+    tone(buzzer, 0); //A
   delay(450);
   noTone(buzzer); 
   
-  tone(buzzer, 392); //Ab
+  tone(buzzer, 392); //A
   delay(250);
   noTone(buzzer);
 
@@ -197,7 +197,7 @@ tone(buzzer, 0); //Bb
   delay(250);
   noTone(buzzer);
     
-    tone(buzzer, 0); //Ab
+    tone(buzzer, 0); //A
   delay(450);
   noTone(buzzer); 
   
@@ -208,6 +208,105 @@ tone(buzzer, 0); //Bb
   tone(buzzer, 369); //D
   delay(250);
   noTone(buzzer);
+    
+    tone(buzzer, 0); //G
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //A
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //G
+  delay(250);
+  noTone(buzzer);
+    
+    tone(buzzer, 0); //D
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //F
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //G
+  delay(250);
+  noTone(buzzer);
+  
+    tone(buzzer, 0); //A
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //G
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //Eb
+  delay(250);
+  noTone(buzzer);
+    
+    tone(buzzer, 0); //C
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //D
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //Eb
+  delay(250);
+  noTone(buzzer);
+  
+    tone(buzzer, 0); // F
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //G
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //F
+  delay(250);
+  noTone(buzzer);
+    
+    tone(buzzer, 0); //C 
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //D
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //Eb
+  delay(250);
+  noTone(buzzer);
+  
+    tone(buzzer, 0); //F
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //Rest
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //G
+  delay(250);
+  noTone(buzzer);
+  
+  tone(buzzer, 0); //G
+  delay(450);
+  noTone(buzzer); 
+  
+  tone(buzzer, 392); //A
+  delay(250);
+  noTone(buzzer);
+
+  tone(buzzer, 369); //F
+  delay(250);
+  noTone(buzzer);
+  
+  
+  
   
   
  
