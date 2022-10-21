@@ -32,6 +32,8 @@ void loop() {
   delay(450);
   noTone(buzzer);
 
+  
+
   tone(buzzer, 392); //G
   delay(250);
   noTone(buzzer);
@@ -47,6 +49,7 @@ void loop() {
   tone(buzzer, 293); //D
   delay(850);
   noTone(buzzer);
+
 
   tone(buzzer, 392); //G
   delay(250);
@@ -68,6 +71,7 @@ void loop() {
   delay(450);
   noTone(buzzer);
 
+
    tone(buzzer, 392); //G
   delay(250);
   noTone(buzzer);
@@ -83,6 +87,7 @@ void loop() {
   tone(buzzer, 311); //Eb
   delay(850);
   noTone(buzzer);
+
 
    tone(buzzer, 261); //C
   delay(250);
@@ -107,6 +112,7 @@ void loop() {
   tone(buzzer, 349); //F
   delay(250);
   noTone(buzzer); 
+
   
   tone(buzzer, 261); //C
   delay(250);
@@ -116,17 +122,15 @@ void loop() {
   delay(250);
   noTone(buzzer);
 
-  tone(buzzer, 311); //Eb
-  delay(450);
+  tone(buzzer, 311); //Eb --
+  delay(250);
   noTone(buzzer);
 
    tone(buzzer, 349); //F
   delay(850);
   noTone(buzzer);
 
-  delay(450); //Rest
-  noTone(buzzer); 
-  
+
   tone(buzzer, 392); //G
   delay(250);
   noTone(buzzer);
@@ -139,13 +143,14 @@ void loop() {
   delay(250);
   noTone(buzzer);
 
-  tone(buzzer, 349); //F
+  tone(buzzer, 369); //F#
   delay(250);
   noTone(buzzer);
 
-   tone(buzzer, 392); //G
-  delay(250);
+  tone(buzzer, 392); //G
+  delay(450);
   noTone(buzzer);
+  
 
   tone(buzzer, 392); //G
   delay(450);
@@ -158,6 +163,7 @@ void loop() {
   tone(buzzer, 293); //D
   delay(850);
   noTone(buzzer);
+
 
   tone(buzzer, 466); //Bb
   delay(250);
@@ -183,6 +189,7 @@ tone(buzzer, 466); //Bb
   delay(450);
   noTone(buzzer);
 
+
   tone(buzzer, 392); //G
   delay(250);
   noTone(buzzer);
@@ -198,6 +205,7 @@ tone(buzzer, 466); //Bb
   tone(buzzer, 293); //D
   delay(850);
   noTone(buzzer);
+
     
     tone(buzzer, 392); //G
   delay(250);
@@ -219,6 +227,7 @@ tone(buzzer, 466); //Bb
   delay(450);
   noTone(buzzer);
 
+
   tone(buzzer, 392); //G
   delay(250);
   noTone(buzzer);
@@ -234,6 +243,7 @@ tone(buzzer, 466); //Bb
   tone(buzzer, 311); //Eb
   delay(850);
   noTone(buzzer);
+
     
   tone(buzzer, 261); //C
   delay(250);
@@ -256,8 +266,9 @@ tone(buzzer, 466); //Bb
   noTone(buzzer);
 
   tone(buzzer, 349); //F
-  delay(240);
+  delay(250);
   noTone(buzzer);
+
     
    tone(buzzer, 261); //C 
   delay(250);
@@ -267,20 +278,22 @@ tone(buzzer, 466); //Bb
   delay(250);
   noTone(buzzer);
 
-  tone(buzzer, 311); //Eb
-  delay(450);
+  tone(buzzer, 311); //Eb --
+  delay(250);
   noTone(buzzer);
   
     tone(buzzer, 349); //F
   delay(850);
   noTone(buzzer); 
-  
+
+
+ 
  //Rest
   delay(250);
   noTone(buzzer);
 
   tone(buzzer, 392); //G
-  delay(250);
+  delay(450);
   noTone(buzzer);
   
   tone(buzzer, 392); //G
@@ -295,10 +308,10 @@ tone(buzzer, 466); //Bb
   delay(450);
   noTone(buzzer);
   
-
-  
+  tone(buzzer, 456); //Bb
+  delay(850);
+  noTone(buzzer);
  
   delay(10000000000);
   
 }
-   
