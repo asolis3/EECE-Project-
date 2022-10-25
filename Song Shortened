@@ -8,7 +8,7 @@
 #define NOTE_A 440
 #define NOTE_Bb 466
 #define REST 0
-int tempo = 120;
+int tempo = 150;
 int buzzer = 12;
 
 int melody[] = {
@@ -40,7 +40,7 @@ int melody[] = {
   
   NOTE_C4,8, NOTE_D4,8, NOTE_Eb4, 4, NOTE_F4,2,
   
-  REST,4, NOTE_G, 8, NOTE_G, 8, NOTE_A, 4, NOTE_A,4, NOTE_Bb,4,
+  REST,4, NOTE_G, 8, NOTE_G, 8, NOTE_A, 4, NOTE_F4,4, NOTE_Bb,4,
 };
 int notes = sizeof(melody) / sizeof(melody[0]) / 2;
 int wholenote = (60000 * 4) / tempo;
