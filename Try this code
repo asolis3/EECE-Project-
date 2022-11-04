@@ -1,0 +1,38 @@
+#include <IRremote.h>
+#define NOTE_Bb 466
+#define NOTE_A 440
+#define REST 
+
+int pin = 13;
+int buzzer =11;
+int togglestate = 0;
+
+IRrecv irrecv(pin);
+decode_results results;
+
+void setup() {
+  Serial.begin(9600);
+  irrecv.enableIRIn();
+  pinMode(buzzer,OUTPUT);
+}
+
+void loop() {
+if (irrecv.decode(&results)){
+ 
+  switch(results.value){
+    case 0xFF30CF:
+
+      tone(buzzer, 466);
+      delay(500);
+      noTone(buzzer);
+   break;
+   
+    case 0xFF02FD:
+     tone(buzzer, 400);
+      delay(500);
+      noTone(buzzer);
+    break;
+  }
+  irrecv.resume();
+  }
+}
