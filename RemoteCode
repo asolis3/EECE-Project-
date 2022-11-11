@@ -1,37 +1,358 @@
+// IRremote - Version: Latest 
 #include <IRremote.h>
-#define NOTE_Bb 466
-#define NOTE_A 440
-#define REST 
+#include <IRremoteInt.h>
+#define NOTE_C4  262
+#define NOTE_Db4 277
+#define NOTE_D4  294
+#define NOTE_Eb4 311
+#define NOTE_E4  330
+#define NOTE_F4  349
+#define NOTE_FS4 370
+#define NOTE_G4  392
+#define NOTE_Ab4 415
+#define NOTE_A4  440
+#define NOTE_Bb4 466
+#define NOTE_B4  494
+#define NOTE_C5  523
+#define NOTE_Db5 554
+#define NOTE_D5  587
+#define NOTE_Eb5 622
+#define NOTE_E5  659
+#define NOTE_F5  698
+#define NOTE_FS5 740
+#define NOTE_G5  784
+#define NOTE_Ab5 831
+#define NOTE_A5  880
+#define NOTE_Bb5 932
+#define NOTE_B5  988
+#define NOTE_C6  10470
+#define REST     0
 
-int pin = 13;
-int buzzer =11;
-int togglestate = 0;
+int length = 8; // the number of notes
+char notes1[] = "cdefgabC "; // a space represents a rest
+int beats[] = { 1 };
 
-IRrecv irrecv(pin);
-decode_results results;
 
-void setup() {
+int redLED = 3;
+int yellowLED = 4;
+int blueLED = 5;
+int tempo = 150;
+int buzzer =9;
+int melody[] = {
+  NOTE_Bb4, 8, NOTE_Bb4,8, NOTE_Bb4,4, NOTE_A4, 8,NOTE_A4,8, NOTE_A4,4,
+  
+  NOTE_G4, 8, NOTE_A4,8, NOTE_G4, 4, NOTE_D4, 2,
+  
+  NOTE_G4, 8, NOTE_A4,8, NOTE_G4, 4, NOTE_D4,4, NOTE_F4,4,
+  
+  NOTE_G4, 8, NOTE_A4,8, NOTE_G4, 4, NOTE_Eb4, 2,
+  
+  NOTE_C4,8, NOTE_D4,4, NOTE_Eb4,8, NOTE_F4,8, NOTE_G4,4, NOTE_F4,8,
+   
+  NOTE_C4,8, NOTE_D4,8, NOTE_Eb4, 4, NOTE_F4,2,
+  
+  REST,4, NOTE_G4,8, NOTE_FS4,8, NOTE_G4,8, NOTE_F4,8, NOTE_G4,4,
+  
+  NOTE_G4, 4, NOTE_Db4,4, NOTE_D4, 2, 
+  
+  NOTE_Bb4, 8, NOTE_Bb4,8, NOTE_Bb4,4, NOTE_A4, 8,NOTE_A4,8, NOTE_A4,4,
+  
+  NOTE_G4, 8, NOTE_A4,8, NOTE_G4, 4, NOTE_D4, 2,
+  
+  NOTE_G4, 8, NOTE_A4,8, NOTE_G4, 4, NOTE_D4,4, NOTE_F4,4,
+  
+  NOTE_G4, 8, NOTE_A4,8, NOTE_G4, 4, NOTE_Eb4,2,
+  
+  NOTE_C4,8, NOTE_D4,4, NOTE_Eb4,8, NOTE_F4,8, NOTE_G4,4, NOTE_F4,8,
+  
+  NOTE_C4,8, NOTE_D4,8, NOTE_Eb4, 4, NOTE_F4,2,
+  
+  REST,4, NOTE_G4, 8, NOTE_G4, 8, NOTE_A4, 4, NOTE_F4,4, NOTE_Bb4,4,
+};
+
+int notes = sizeof(melody) / sizeof(melody[0]) / 2;
+int wholenote = (60000 * 4) / tempo;
+int divider = 0, noteDuration = 0;
+
+int Ltempo = 135;
+int Looking[] = {
+  NOTE_C4, 8, NOTE_Db4,8,
+  NOTE_Eb4, 12, NOTE_F4,12, NOTE_Eb4, 12, NOTE_D4, 8, NOTE_Eb4,8, NOTE_F4, 4, NOTE_Ab4, 4, 
+  NOTE_C5, 4, NOTE_Eb4, -5, REST, 8, 
+  NOTE_C5, -5, NOTE_C5, 8, NOTE_Bb4, -5, NOTE_Ab4, 8,
+  NOTE_F4, -4, REST, 8, NOTE_F4,8, NOTE_G4, 8, 
+  NOTE_Ab4, 12, NOTE_Bb4, 12, NOTE_Ab4, 12, NOTE_F4, 8, NOTE_FS4, 8, NOTE_G4, -4,
+  NOTE_G4, 12, NOTE_Ab4, 12, NOTE_G4, 12, NOTE_Eb4, 8, NOTE_E4, 8, NOTE_F4, -3, NOTE_FS4, 8,
+  NOTE_G4, 8, NOTE_Ab4, 8, NOTE_Bb4, 8, NOTE_C5, 8, NOTE_Bb4, 8, NOTE_Ab4, 8, NOTE_G4, 8, NOTE_F4, 8, 
+  NOTE_Bb4, -5,REST, 8, NOTE_C4,8, NOTE_Db4, 8,    
+  NOTE_Eb4, 12, NOTE_F4,12, NOTE_Eb4, 12, NOTE_D4, 8, NOTE_Eb4,8, NOTE_F4, 4, NOTE_Ab4, 4, 
+  NOTE_C5, 4, NOTE_Eb4, -5, REST,8, 
+  NOTE_C5, -5, NOTE_C5, 8, NOTE_Bb4, -5, NOTE_Ab4, 8, 
+  NOTE_F4, -4
+  
+}; 
+int Lnotes = sizeof(Looking) / sizeof(Looking[0]) / 2;
+int Lwholenote = (60000 * 4) / Ltempo;
+int Ldivider = 0, LnoteDuration = 0;
+
+int Ntempo = 135;
+int Navidad[] = {
+  NOTE_F4, 8, NOTE_Bb4, 4, NOTE_A4, 8, NOTE_Bb4, 8,
+  NOTE_G4, -4, NOTE_G4, 4, REST, 8, NOTE_G4, 8, NOTE_C5, 4, NOTE_Bb4, 8, NOTE_G4, 8,
+  NOTE_F4, -4, NOTE_F4, 4, REST, 8, NOTE_F4, 8, NOTE_Bb4, 4, NOTE_A4, 8, NOTE_Bb4, 8,
+  NOTE_G4, -3, NOTE_Eb4, 8, NOTE_G4, 4, NOTE_G4, 4,
+  NOTE_F4, 8, NOTE_F4, 8, NOTE_G4, 8, NOTE_F4,8, NOTE_Eb4,8, NOTE_D4, 8,
+  NOTE_D4,-4, REST,8, NOTE_F4,8, NOTE_Bb4,4, NOTE_A4,8, NOTE_Bb4,8,
+  
+  NOTE_G4, -4, NOTE_G4, 4, REST, 8, NOTE_G4, 8, NOTE_C5, 4, NOTE_Bb4, 8, NOTE_G4, 8,
+  NOTE_F4, -4, NOTE_F4, 4, REST, 8, NOTE_F4, 8, NOTE_Bb4, 4, NOTE_A4, 8, NOTE_Bb4, 8,
+  NOTE_G4, -3, NOTE_Eb4, 8, NOTE_G4, 4, NOTE_G4, 4,
+  NOTE_F4, 8, NOTE_F4, 8, NOTE_G4, 8, NOTE_F4,8, NOTE_Eb4,8, NOTE_D4, 8,
+  
+  NOTE_D4,-4, REST,8, NOTE_D5, 8, NOTE_D5, 8, NOTE_D5, 8, NOTE_D5, 8, NOTE_C5, 4,  NOTE_Bb4,8,
+  
+  NOTE_G4, -4, NOTE_G4, 4, REST, 8, NOTE_G4, 8, NOTE_C5, 4, NOTE_Bb4, 8, NOTE_G4, 8,
+  NOTE_F4, -4, NOTE_F4, 4, REST, 8, NOTE_F4, 8, NOTE_Bb4, 4, NOTE_A4, 8, NOTE_Bb4, 8,
+  NOTE_G4, -3, NOTE_Eb4, 8, NOTE_G4, 4, NOTE_G4, 4,
+  NOTE_F4, 8, NOTE_F4, 8, NOTE_G4, 8, NOTE_F4,8, NOTE_Eb4,8, NOTE_D4, 8,
+  
+  
+};
+int Nnotes = sizeof(Navidad) / sizeof(Navidad[0]) / 2;
+int Nwholenote = (60000 * 4) / Ntempo;
+int Ndivider = 0, NnoteDuration = 0;
+
+int speakerPin = 9;
+
+// the calculation of the tones is made following the mathematical operation:
+// > timeHigh = period / 2 = 1 / (2 * toneFrequency)
+// where the different tones are described as in the table:
+//note    frequency    period    timeHigh
+  /*
+  c       261 Hz       3830       1915   
+  d       294 Hz       3400       1700  
+  e       329 Hz       3038       1519  
+  f       349 Hz       2864       1432  
+  g       392 Hz       2550       1275  
+  a       440 Hz       2272       1136  
+  b       493 Hz       2028       1014  
+  C       523 Hz       1912        956
+  */
+
+
+
+int receiver = 11; // Signal Pin of IR receiver to Arduino Digital Pin 11
+
+/*-----( Declare objects )-----*/
+IRrecv irrecv(receiver);     // create instance of 'irrecv'
+decode_results results;      // create instance of 'decode_results'
+
+void setup()   /*----( SETUP: RUNS ONCE )----*/
+{
   Serial.begin(9600);
-  irrecv.enableIRIn();
-  pinMode(buzzer,OUTPUT);
-}
+  Serial.println("IR Receiver Button Decode"); 
+  irrecv.enableIRIn(); // Start the receiver
+   
+  pinMode(speakerPin, OUTPUT);
 
-void loop() {
-if (irrecv.decode(&results)){
- 
-  switch(results.value){
-    case 0xFF30CF:
+  pinMode(redLED, OUTPUT);
+  pinMode(yellowLED, OUTPUT);
+  pinMode(blueLED, OUTPUT);
+  
 
-    if(togglestate==0){
-      tone(buzzer, 466);
-      togglestate=1;
+
+}/*--(end setup )---*/
+
+
+void loop()   /*----( LOOP: RUNS CONSTANTLY )----*/
+{
+  if (irrecv.decode(&results)) // have we received an IR signal?
+  {
+    Serial.println(results.value); // > here you get the integer from your Remote
+    // use an Decimal to Hexadecimal Converter to get the Hex like this: http://www.binaryhexconverter.com/decimal-to-hex-converter
+    // add your Mapping in the function translateIR > check the two examples with Power and number 5-Button
+    translateIR(); 
+    irrecv.resume(); // receive the next value
+  }  
+}/* --(end main loop )-- */
+
+/*-----( Function )-----*/
+void translateIR() // takes action based on IR code received
+
+// describing Remote IR codes 
+
+{
+
+  switch(results.value)
+    
+  {
+  case 0xFFA25D: Serial.println("POWER Elegoo"); break;     // 16753245 Elegoo
+  case 0xE0E040BF: Serial.println("POWER Samsung"); break;  // 3772793023 Samsung
+  case 0xD5AD0B51: Serial.println("POWER Technics"); break;  // 3584887633 Technics
+  case 0xA0C: Serial.println("POWER TechniSat"); break; // TechniSat
+  
+  case 0xFFE21D: Serial.println("FUNC/STOP"); break; // 16769565 Elegoo
+  case 0xFF629D: Serial.println("VOL+"); break;  // 16736925 Elegoo 
+  case 0xFF22DD: Serial.println("FAST BACK");    break;  // 16720605 Elegoo
+  case 0xFF02FD: Serial.println("PAUSE");    break;  // 16712445
+  case 0xFFC23D: Serial.println("FAST FORWARD");   break;
+  case 0xFFE01F: Serial.println("DOWN");    break;
+  case 0xFFA857: Serial.println("VOL-");    break;
+  case 0xFF906F: Serial.println("UP");    break;
+  case 0xFF9867: Serial.println("EQ");    break;
+  case 0xFFB04F: Serial.println("ST/REPT");    break;
+  
+  case 0xFF6897: Serial.println("0");    break;
+  case 0x200: Serial.println("0 TechniSat"); break; // TechniSat
+  case 0xA00: Serial.println("0 TechniSat"); break; // TechniSat
+  
+  case 0xFF30CF: Serial.println("1");  
+
+ for (int thisNote = 0; thisNote < Lnotes * 2; thisNote = thisNote + 2) {
+
+    // calculates the duration of each note
+    Ldivider = Looking[thisNote + 1];
+    if (Ldivider > 0) {
+      // regular note, just proceed
+      LnoteDuration = (Lwholenote) / Ldivider;
+    } else if (Ldivider < 0) {
+      // dotted notes are represented with negative durations!!
+      LnoteDuration = (Lwholenote) / abs(Ldivider);
+      LnoteDuration *= 1.5; // increases the duration in half for dotted notes
     }
-    else {
-      noTone(buzzer);
-      togglestate=0;
+    tone(buzzer, Looking[thisNote], LnoteDuration * 0.9);
+
+    // Wait for the specief duration before playing the next note.
+    delay(LnoteDuration);
+
+    // stop the waveform generation before the next note.
+    noTone(buzzer);
+    
+  }
+  
+  
+ /*   for (int i = 0; i < length; i++) {
+    if (notes[i] == ' ') {
+      delay(beats[i] * tempo); // rest
+    } else {
+      playNote(notes[i], beats[i] * tempo);
     }
-    break;
+
+    // pause between notes
+    delay(tempo / 2); 
   }
-  irrecv.resume();
+  */
+  break;
+  
+  case 0x201: Serial.println("1 TechniSat"); break; // TechniSat
+  case 0xA01: Serial.println("1 TechniSat"); break; // TechniSat
+  
+  case 0xFF18E7: Serial.println("2");
+
+for (int thisNote = 0; thisNote < Nnotes * 2; thisNote = thisNote + 2) {
+
+    // calculates the duration of each note
+    Ndivider = Navidad[thisNote + 1];
+    if (Ndivider > 0) {
+      // regular note, just proceed
+      NnoteDuration = (Nwholenote) / Ndivider;
+    } else if (Ndivider < 0) {
+      // dotted notes are represented with negative durations!!
+      NnoteDuration = (Nwholenote) / abs(Ndivider);
+      NnoteDuration *= 1.5; // increases the duration in half for dotted notes
+    }
+    tone(buzzer, Navidad[thisNote], NnoteDuration * 0.9);
+
+    // Wait for the specief duration before playing the next note.
+    delay(NnoteDuration);
+
+    // stop the waveform generation before the next note.
+    noTone(buzzer);
+    
   }
+  
+  break;
+  case 0x202: Serial.println("2 TechniSat"); break; // TechniSat
+  case 0xA02: Serial.println("2 TechniSat"); break; // TechniSat
+  
+  case 0xFF7A85: Serial.println("3");
+  for (int thisNote = 0; thisNote < notes * 2; thisNote = thisNote + 2) {
+
+    // calculates the duration of each note
+    divider = melody[thisNote + 1];
+    if (divider > 0) {
+      // regular note, just proceed
+      noteDuration = (wholenote) / divider;
+    } else if (divider < 0) {
+      // dotted notes are represented with negative durations!!
+      noteDuration = (wholenote) / abs(divider);
+      noteDuration *= 1.5; // increases the duration in half for dotted notes
+    }
+    tone(buzzer, melody[thisNote], noteDuration * 0.9);
+
+    // Wait for the specief duration before playing the next note.
+    delay(noteDuration);
+
+    // stop the waveform generation before the next note.
+    noTone(buzzer);
+    
+  }
+  
+  
+  break;
+  case 0x203: Serial.println("3 TechniSat"); break; // TechniSat
+  case 0xA03: Serial.println("3 TechniSat"); break; // TechniSat
+  
+  case 0xFF10EF: Serial.println("4");    break;
+  case 0x204: Serial.println("4 TechniSat"); break; // TechniSat
+  case 0xA04: Serial.println("4 TechniSat"); break; // TechniSat
+  
+  case 0xFF38C7: Serial.println("5 Elegoo");    break;     // 16726215 Elegoo
+  case 0xE0E0906F: Serial.println("5 Samsung");    break;  // 3772813423 Samsung
+  case 0xB1CE824B: Serial.println("5 Technics");    break;  // 2983101003 Technics
+  case 0x205: Serial.println("5 TechniSat"); break; // TechniSat
+  case 0xA05: Serial.println("5 TechniSat"); break; // TechniSat
+  
+  case 0xFF5AA5: Serial.println("6");    break;
+  case 0x206: Serial.println("6 TechniSat"); break; // TechniSat
+  case 0xA06: Serial.println("6 TechniSat"); break; // TechniSat
+  
+  case 0xFF42BD: Serial.println("7");    break;
+  case 0x207: Serial.println("7 TechniSat"); break; // TechniSat
+  case 0xA07: Serial.println("7 TechniSat"); break; // TechniSat
+
+  case 0xFF4AB5: Serial.println("8");    break;
+  case 0x208: Serial.println("8 TechniSat"); break; // TechniSat
+  case 0xA08: Serial.println("8 TechniSat"); break; // TechniSat
+  
+  case 0xFF52AD: Serial.println("9");    break;
+  case 0x209: Serial.println("9 TechniSat"); break; // TechniSat
+  case 0xA09: Serial.println("9 TechniSat"); break; // TechniSat
+  
+  case 0xFFFFFFFF: Serial.println(" REPEAT");break;  
+
+  default: 
+    Serial.println(" other button   ");
+
+  }// End Case
+
+  delay(500); // Do not get immediate repeat
+
+
+} //END translateIR
+
+void playTone(int tone, int duration) {
+  for (long i = 0; i < duration * 1000L; i += tone * 2) {
+    digitalWrite(speakerPin, HIGH);
+    delayMicroseconds(tone);
+    digitalWrite(speakerPin, LOW);
+    delayMicroseconds(tone);
+  }
+
+
+
+
+  // play the tone corresponding to the note name
+  
+  
 }
