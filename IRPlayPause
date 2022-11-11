@@ -1,0 +1,22 @@
+#include <IRremote.h>
+#include <IRremoteInt.h>
+int RECV_PIN = 12;
+IRrecv irrecv(RECV_PIN);
+decode_results results;
+const int buzzer = 8; // buzzer output pin
+int play_pause = 0xFFC23D;
+int buttonState = 0;
+void setup() {
+  Serial.begin(9600);
+  irrecv.enableIRIn(); // start reciever
+  pinMode(buzzer,OUTPUT);
+}
+
+void loop() {
+    if(irrecv.decode(&results))
+    {
+      Serial.println(results.value, HEX); // this just prints the hex value of each button to the serial monitor
+
+      irrecv.resume(); // Recieve Next Value
+    }
+}
