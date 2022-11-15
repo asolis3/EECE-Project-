@@ -1,6 +1,6 @@
 // IRremote - Version: Latest 
 #include <IRremote.h>
-#include <IRremoteInt.h>
+#include <IRremoteInt.h> 
 #define NOTE_C4  262
 #define NOTE_Db4 277
 #define NOTE_D4  294
@@ -37,7 +37,7 @@ int redLED = 3;
 int yellowLED = 4;
 int blueLED = 5;
 int tempo = 150;
-int buzzer =9;
+int buzzer =12;
 int melody[] = {
   NOTE_Bb4, 8, NOTE_Bb4,8, NOTE_Bb4,4, NOTE_A4, 8,NOTE_A4,8, NOTE_A4,4,
   
@@ -122,8 +122,15 @@ int Nnotes = sizeof(Navidad) / sizeof(Navidad[0]) / 2;
 int Nwholenote = (60000 * 4) / Ntempo;
 int Ndivider = 0, NnoteDuration = 0;
 
-int speakerPin = 9;
+int Rtempo = 100;
+int Rests[] = { REST
+};
+int Rnotes = sizeof(Rests) / sizeof(Rests[0]) / 2;
+int Rwholenote = (60000 * 4) / Rtempo;
+int Rdivider = 0, RnoteDuration = 0;
 
+int speakerPin = 9;
+int togglestate = 0;
 // the calculation of the tones is made following the mathematical operation:
 // > timeHigh = period / 2 = 1 / (2 * toneFrequency)
 // where the different tones are described as in the table:
@@ -248,7 +255,7 @@ void translateIR() // takes action based on IR code received
   case 0xA01: Serial.println("1 TechniSat"); break; // TechniSat
   
   case 0xFF18E7: Serial.println("2");
-
+if(togglestate == 0) {
 for (int thisNote = 0; thisNote < Nnotes * 2; thisNote = thisNote + 2) {
 
     // calculates the duration of each note
@@ -268,8 +275,35 @@ for (int thisNote = 0; thisNote < Nnotes * 2; thisNote = thisNote + 2) {
 
     // stop the waveform generation before the next note.
     noTone(buzzer);
+    togglestate= 1;
     
   }
+}
+
+else {
+ for (int thisNote = 0; thisNote < Rnotes * 2; thisNote = thisNote + 2) {
+
+    // calculates the duration of each note
+    Rdivider = Rests[thisNote + 1];
+    if (Rdivider > 0) {
+      // regular note, just proceed
+      RnoteDuration = (Rwholenote) / Rdivider;
+    } else if (Rdivider < 0) {
+      // dotted notes are represented with negative durations!!
+      RnoteDuration = (Rwholenote) / abs(Ldivider);
+      RnoteDuration *= 1.5; // increases the duration in half for dotted notes
+    }
+    tone(buzzer, Rests[thisNote], RnoteDuration * 0.9);
+
+    // Wait for the specief duration before playing the next note.
+    delay(RnoteDuration);
+
+    // stop the waveform generation before the next note.
+    noTone(buzzer);
+    
+  }
+  togglestate = 0;
+}
   
   break;
   case 0x202: Serial.println("2 TechniSat"); break; // TechniSat
@@ -336,7 +370,7 @@ for (int thisNote = 0; thisNote < Nnotes * 2; thisNote = thisNote + 2) {
 
   }// End Case
 
-  delay(500); // Do not get immediate repeat
+  delay(50); // Do not get immediate repeat
 
 
 } //END translateIR
